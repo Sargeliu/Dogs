@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -39,14 +41,16 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getDogImage().observe(this, new Observer<DogImage>() {
             @Override
             public void onChanged(DogImage dogImage) {
-                Log.d(TAG, dogImage.toString());
+                Glide.with(MainActivity.this)
+                        .load(dogImage.getMessage())
+                        .into(imageView);
             }
         });
     }
 
     private void initViews() {
-        ImageView imageView = findViewById(R.id.imageView);
-        Button buttonNextImage = findViewById(R.id.buttonNextImage);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
+        imageView = findViewById(R.id.imageView);
+        buttonNextImage = findViewById(R.id.buttonNextImage);
+        progressBar = findViewById(R.id.progressBar);
     }
 }
